@@ -8,7 +8,7 @@ class ExactImage < Formula
   depends_on 'pkg-config' => :build
   depends_on 'freetype' => :optional
  
-  # finxing a double inclusion with a #pragma once
+  # fixing a double inclusion with a #pragma once
   patch :DATA
 
   def install
@@ -19,15 +19,23 @@ class ExactImage < Formula
 end
 __END__
 diff --git a/lib/scale.hh b/lib/scale.hh
-index 0b9f75a..7b69968 100644
+index 0b9f75a..f3329c1 100644
 --- a/lib/scale.hh
 +++ b/lib/scale.hh
-@@ -15,6 +15,7 @@
-  * Alternatively, commercial licensing options are available from the
+@@ -16,6 +16,9 @@
   * copyright holder ExactCODE GmbH Germany.
   */
-+#pragma once
  
++#ifndef _SCALE_HH
++#define _SCALE_HH
++
  // pick the best
  void scale (Image& image, double xscale, double yscale);
+ 
+@@ -29,3 +32,5 @@ void bicubic_scale (Image& image, double xscale, double yscale);
+ void ddt_scale (Image& image, double xscale, double yscale);
+ 
+ void thumbnail_scale (Image& image, double xscale, double yscale);
++
++#endif
 
